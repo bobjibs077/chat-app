@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="chat-room">
+    <h2 class="chat-header">Chat Room: {{ code }}</h2>
+    <div class="message-box" id="messages">
+        {% for message in messages %}
+        <div class="message">
+            <strong>{{ message[0] }}</strong>: {{ message[1] }}
+            <span class="timestamp">{{ message[2] }}</span>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="inputs">
+        <input 
+            type="text" 
+            placeholder="Type your message here..." 
+            name="message" 
+            id="message" 
+            class="input-message"
+        />
+        <button
+            type="button"
+            name="send"
+            id="send-button"
+            class="send-button"
+            onClick="sendMessage()">
+            Send
+        </button>
+    </div>
+</div>
+
+<script>
+    const socketio = io();
+
+    const messages = document.getElementById('messages');
+    const messageInput = document.getElementById('message');
+
+    const sendMessage = () => {
+        const message = messageInput.value.trim();
+        if (message) {
+            socketio.emit("message", { message });
+            messageInput.value = "";
+        }
+    };
+
+    socketio.on("message", (data) => {
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('message');
+        messageElement.innerHTML = `
+            <strong>${data.username}</strong>: ${data.message}
+            <span class="timestamp">${new Date().toLocaleTimeString()}</span>
+        `;
+        messages.appendChild(messageElement);
+        messages.scrollTop = messages.scrollHeight;
+    });
+
+    socketio.emit("join", {});
+</script>
+
+<style>
+    .chat-room {
+        max-width: 600px;
+        margin: 20px auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    .chat-header {
+        text-align: center;
+        color: #4CAF50;
+        margin-bottom: 20px;
+    }
+    .message-box {
+        max-height: 400px;
+        overflow-y: auto;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background: #f9f9f9;
+        margin-bottom: 15px;
+    }
+    .message {
+        margin-bottom: 10px;
+        padding: 10px;
+        background: #e8f5e9;
+        border-radius: 5px;
+    }
+    .timestamp {
+        font-size: 0.85em;
+        color: #888;
+    }
+    .inputs {
+        display: flex;
+        gap: 10px;
+    }
+    .input-message {
+        flex-grow: 1;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1em;
+    }
+    .send-button {
+        background: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .send-button:hover {
+        background: #45a049;
+    }
+</style>
+{% endblock %}

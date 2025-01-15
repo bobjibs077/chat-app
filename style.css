@@ -1,0 +1,121 @@
+/* General container styling */
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f4f4f9;
+    margin: 0;
+}
+
+/* Button styling */
+.buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px;
+}
+
+.join {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 10px;
+}
+
+.create-button {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.create-button:hover {
+    background-color: #45a049;
+}
+
+/* Chat message box styling */
+.message-box {
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: #ffffff;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    width: 80vw;
+    max-width: 900px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    overflow: hidden;
+}
+
+.messages {
+    overflow-y: auto;
+    flex: 1;
+    width: 100%;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #ddd;
+}
+
+.inputs {
+    padding: 10px;
+    display: flex;
+    background-color: #fafafa;
+    border-top: 1px solid #ddd;
+    gap: 10px;
+}
+
+h2 {
+    text-align: center;
+    margin: 20px 0;
+    color: #333;
+}
+
+/* Input field styling */
+#message {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+/* Message styling */
+.text {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #e8f5e9;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.text:nth-child(odd) {
+    background-color: #f1f8e9;
+}
+
+.muted {
+    font-size: 0.85rem;
+    color: darkgray;
+}
+
+/* Button hover effects */
+button {
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button:hover {
+    background-color: #2196F3;
+    color: white;
+}
